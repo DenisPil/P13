@@ -15,47 +15,10 @@ jobs:
             pip install --user --no-cache-dir -r requirements.txt
           when: always
       - run:
-          name: Run tests
-          command: pytest
-      - run:
           name: Run Linting
-          command: flake8 --ignore=F841
+          command: flake8 
 
-  
-  build_push_docker_image:
-    docker:
-      - image: circleci/python:3.9
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run: |
-          TAG=$CIRCLE_SHA1
-          docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME .
-          docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG .
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
-          docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
-          docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG
-  deploy:
-    executor: heroku/default
-    steps:
-      - checkout
-      - heroku/install
-      - run: |
-          heroku config:set ENV=production -a $HEROKU_APP_NAME
-          heroku config:set SECRET_KEY=$SECRET_KEY -a $HEROKU_APP_NAME
-          heroku config:set SENTRY_DSN=$SENTRY_DSN -a $HEROKU_APP_NAME
-      - heroku/deploy-via-git
-      - run: |
-          heroku run python manage.py makemigrations -a $HEROKU_APP_NAME
-          heroku run python manage.py migrate -a $HEROKU_APP_NAME
 workflows:
   test_build_deploy:
     jobs:
       - build_test
-      - build_push_docker_image:
-          requires:
-            - build_test
-
-      - deploy:
-          requires:
-            - build_push_docker_image
