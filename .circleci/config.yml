@@ -30,5 +30,3 @@ workflows:
   test_heroku:
     jobs:
       - heroku-deploy:
-          requires:
-            - build_test
