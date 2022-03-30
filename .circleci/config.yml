@@ -1,0 +1,24 @@
+version: 2.1
+
+orbs: 
+  heroku: circleci/heroku@1.2.6
+
+jobs:
+  build_test:
+    docker:
+      - image: circleci/python:3.9
+    steps:
+      - checkout
+      - run:
+          name: install packages
+          command: |
+            pip install --user --no-cache-dir -r requirements.txt
+          when: always
+      - run:
+          name: Run Linting
+          command: flake8 
+
+workflows:
+  test_build_deploy:
+    jobs:
+      - build_test
