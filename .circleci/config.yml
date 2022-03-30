@@ -24,7 +24,6 @@ jobs:
       - checkout
       - heroku/install
       - heroku/deploy-via-git:
-          branch: master
       - run:
           command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SECRET_KEY=$SECRET_KEY -a lettings-oc
       - run: 
