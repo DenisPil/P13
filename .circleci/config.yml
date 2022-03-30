@@ -17,13 +17,7 @@ jobs:
       - run:
           name: Run Linting
           command: flake8 
-  heroku-deploy:
-    docker:
-      - image: cimg/python:3.9.2
-    steps:
-      - checkout
-      - heroku/install
-      - heroku/deploy-via-git:
+
 workflows:
   test_build_deploy:
     jobs:
