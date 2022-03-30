@@ -17,23 +17,19 @@ jobs:
       - run:
           name: Run Linting
           command: flake8 
-  heroku-deploy:
-    docker:
-      - image: cimg/python:3.9.2
+  deploy:
+    executor: heroku/default
     steps:
       - checkout
       - heroku/install
-      - heroku/deploy-via-git:
-      - run:
-          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SECRET_KEY=$SECRET_KEY -a lettings-oc
-      - run: 
-          command: HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set DSN=$DSN -a lettings-oc
+      - run: |
+          heroku config:set ENV=production -a $HEROKU_APP_NAME
+          heroku config:set SECRET_KEY=$SECRET_KEY -a $HEROKU_APP_NAME
+      - heroku/deploy-via-git
 
 workflows:
   test_build:
     jobs:
       - build_test
-  test_heroku:
-    jobs:
-      - heroku-deploy
-      
+      - deploy
+
