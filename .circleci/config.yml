@@ -33,7 +33,5 @@ workflows:
   test_build:
     jobs:
       - build_test
-  test_heroku:
-    jobs:
       - heroku-deploy
       
