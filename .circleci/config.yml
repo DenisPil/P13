@@ -17,6 +17,12 @@ jobs:
       - run:
           name: Run Linting
           command: flake8 
+      deploy:
+  heroku-deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
 
 workflows:
   test_build:
