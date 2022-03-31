@@ -22,13 +22,11 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run:
-          name: Build and push Docker image to Heroku
-          command: |
-            sudo curl https://cli-assets.heroku.com/install.sh | sh
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a lettings-oc web
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a lettings-oc web
+      - heroku/install
+      - run: |
+          heroku config:set ENV=production -a $HEROKU_APP_NAME
+          heroku config:set SECRET_KEY=$SECRET_KEY -a $HEROKU_APP_NAME
+      - heroku/deploy-via-git
 
 
 workflows:
