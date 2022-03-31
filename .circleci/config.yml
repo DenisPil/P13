@@ -17,18 +17,12 @@ jobs:
       - run:
           name: Run Linting
           command: flake8 
-  deploy:
-    executor: heroku/default
-    steps:
-      - checkout
-      - heroku/install
-      - run: |
-          heroku config:set SECRET_KEY=$SECRET_KEY -a $HEROKU_APP_NAME
-      - heroku/deploy-via-git
 
 workflows:
   test_build:
     jobs:
       - build_test
-      - deploy
+      - heroku/deploy-via-git:
+          requires:
+            - build_and_test
 
