@@ -27,13 +27,10 @@ jobs:
       - setup_remote_docker
       - checkout
       - docker/check
-      - run: |
-          TAG=$CIRCLE_SHA1
-          docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME .
-          docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG .
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
-          docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
-          docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG
+      - docker/build:
+          image: ${DOCKER_LOGIN}/oc_lettings
+      - docker/push:
+          image: ${DOCKER_LOGIN}/oc_lettings
   heroku-deploy:
     machine: true
     steps:
