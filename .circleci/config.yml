@@ -17,6 +17,9 @@ jobs:
       - run:
           name: Run Linting
           command: flake8 
+      - run:
+          name: Run Pytest
+          command: pytest
 
   heroku-deploy:
     machine: true
