@@ -26,5 +26,6 @@ class TestProfiles(TestCase):
         letting.save()
         uri = reverse('letting', kwargs={'letting_id': letting.id})
         response = self.client.get(uri)
-        assert response.status_code == 200
-        assert b'<title>test-letting</title>' in response.content
+        assert response.status_code == 200 and \
+            b'<title>test-letting</title>' \
+            in response.content
