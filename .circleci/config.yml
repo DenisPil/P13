@@ -21,16 +21,19 @@ jobs:
       - run:
           name: Run Pytest
           command: pytest
-  build-docker:
-    executor: docker/docker
+  build_docker:
+    docker:
+      - image: circleci/python:3.9
     steps:
-      - setup_remote_docker
       - checkout
-      - docker/check
-      - docker/build:
-          image: ${DOCKER_LOGIN}/oc_lettings
-      - docker/push:
-          image: ${DOCKER_LOGIN}/oc_lettings
+      - setup_remote_docker
+      - run: |
+          TAG=$CIRCLE_SHA1
+          docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME .
+          docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG .
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
+          docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
+          docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG
   heroku-deploy:
     machine: true
     steps:
