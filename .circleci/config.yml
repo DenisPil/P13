@@ -21,12 +21,12 @@ jobs:
       - run:
           name: Run Pytest
           command: pytest
-  build_docker:
-    docker:
-      - image: circleci/python:3.9
+  build-docker:
+    executor: docker/docker
     steps:
-      - checkout
       - setup_remote_docker
+      - checkout
+      - docker/check
       - run: |
           TAG=$CIRCLE_SHA1
           docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME .
