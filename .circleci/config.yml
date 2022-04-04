@@ -2,6 +2,7 @@ version: 2.1
 
 orbs: 
   heroku: circleci/heroku@1.2.6
+  docker: circleci/docker@2.0.2
 
 jobs:
   build_test:
@@ -17,7 +18,19 @@ jobs:
       - run:
           name: Run Linting
           command: flake8 
-
+      - run:
+          name: Run Pytest
+          command: pytest
+  build-docker:
+    executor: docker/docker
+    steps:
+      - setup_remote_docker
+      - checkout
+      - docker/check
+      - docker/build:
+          image: ${DOCKER_LOGIN}/oc_lettings
+      - docker/push:
+          image: ${DOCKER_LOGIN}/oc_lettings
   heroku-deploy:
     machine: true
     steps:
@@ -33,6 +46,9 @@ workflows:
   test_build:
     jobs:
       - build_test
+      - build-docker:
+          requires:
+            - build_test
       - heroku-deploy:
           requires:
             - build_test
