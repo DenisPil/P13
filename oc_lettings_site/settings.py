@@ -117,7 +117,7 @@ STATIC_URL = '/static/'
 sentry_sdk.init(
     dsn=os.getenv(
         'SENTRY_DSN',
-        "https://fa69d5a72a4f4f4fbe55c94f4df62cb1@o1188589.ingest.sentry.io/6308656"),
+        "https://cd7a6fb2f4d24983baf3c2e595568591@o1188178.ingest.sentry.io/6308103"),
     integrations=[DjangoIntegration()],
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
