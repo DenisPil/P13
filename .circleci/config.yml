@@ -42,8 +42,8 @@ jobs:
           heroku config:set SECRET_KEY=$SECRET_KEY -a $HEROKU_APP_NAME
       - heroku/deploy-via-git
   notify-sentry-deploy:
-    executor:
-    # Specify executor for running deploy job
+    docker:
+      - image: circleci/python:3.9
     environment:
       SENTRY_ORG: sample-organization-slug
       SENTRY_PROJECT: sample-project-slug
