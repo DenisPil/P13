@@ -43,7 +43,7 @@ jobs:
       - heroku/deploy-via-git
   notify-sentry-deploy:
     docker:
-      - image: circleci/python:3.9
+      - image: circleci/sentry
     environment:
       SENTRY_ORG: sample-organization-slug
       SENTRY_PROJECT: sample-project-slug
