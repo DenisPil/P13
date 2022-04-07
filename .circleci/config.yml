@@ -3,6 +3,7 @@ version: 2.1
 orbs: 
   heroku: circleci/heroku@1.2.6
   docker: circleci/docker@2.0.2
+  sentry: radar/sentry@1.0.4
 
 jobs:
   build_test:
@@ -49,7 +50,7 @@ jobs:
       SENTRY_ENVIRONMENT: production
     steps:
       - checkout
-      # ...
+      - docker/check
       - run:
           name: Create release and notify Sentry of deploy
           command: |
