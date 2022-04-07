@@ -53,11 +53,11 @@ workflows:
             - build_test
           filters:
             branches:
-              only: master
+              only: main
       - heroku-deploy:
           requires:
             - build-docker
           filters:
             branches:
-              only: master
+              only: main
 
