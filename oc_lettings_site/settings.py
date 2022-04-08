@@ -1,6 +1,7 @@
 import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+import django_heroku
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -11,13 +12,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s'
-# SECRET_KEY = os.environ.get("SECRET_KEY")
+# os.getenv('SECRET_KEY', "fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s")
+
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1', '0.0.0.1']
-
+ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1']
+#  '0.0.0.1'
 
 # Application definition
 
@@ -128,3 +130,5 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True,
 )
+
+django_heroku.settings(locals())
