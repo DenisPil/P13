@@ -41,6 +41,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'oc_lettings_site.urls'
@@ -127,5 +128,3 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True,
 )
-#  https://fa69d5a72a4f4f4fbe55c94f4df62cb1@o1188589.ingest.sentry.io/6308656
-#  https://cd7a6fb2f4d24983baf3c2e595568591@o1188178.ingest.sentry.io/6308103 old

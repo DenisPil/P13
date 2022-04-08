@@ -3,7 +3,6 @@ version: 2.1
 orbs: 
   heroku: circleci/heroku@1.2.6
   docker: circleci/docker@2.0.2
-  sentry: radar/sentry@1.0.4
 
 jobs:
   build_test:
