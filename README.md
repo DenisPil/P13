@@ -75,3 +75,40 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+
+## Dépploiement
+
+### Docker Hub
+
+Permet de lancer l'application dans un conteneur en local, à partir de la derniere version qui ce trouve : https://hub.docker.com/repository/docker/denispil/oc_lettings
+
+- La première étape est de cloner le repo sur github : `git clone git@github.com:DenisPil/P13.git`
+- Ensuite activer l'environement virtuelle `source venv/bin/activate`.
+- Pour terminer se mettre dans le répertoire racine de l'application.
+- Puis activer le conteneur `docker-compose up`
+- Et ce rendre à l'adresse `localhost:8000`
+
+### CircleCI & Heroku
+
+Utilisation d'un Pipeline CI/CD et déploiement sur Heroku
+
+Prérequis:
+- Un compte GitHub.
+- Un compte Circleci.
+- Un compte Heroku.
+- Un compte DockerHub.
+- Un compte Sentry.
+
+Ce rendre dans les settings de CircleCI puis l'onglet "Variable d'environnement"
+
+| NAME | VALUE | 
+| DOCKER_LOGIN | Username de votre compte DockerHub|
+| DOCKER_PASSWORD | Token de votre compte DockerHub|
+| HEROKU_API_KEY | API-KEY de votre compte Heroku|
+| HEROKU_APP_NAME | Le nom de votre application sur Heroku|
+| SECRET_KEY | La clé qui ce trouve dans le settings.py de l'application Django|
+| SENTRY_DSN | le DSN de votre projet Sentry|
+
+Le pipeline est executé automatiquement lors d'un push sur Github.
+CircleCI automatise le déploiement sur Heroku et la dernière image est sauvegardée sur Dockerhub.
