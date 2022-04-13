@@ -77,17 +77,17 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
 
 
-## Dépploiement
+## Déploiement
 
 ### Docker Hub
 
-Permet de lancer l'application dans un conteneur en local, à partir de la derniere version qui ce trouve : https://hub.docker.com/repository/docker/denispil/oc_lettings
+Permet de lancer l'application dans un conteneur en local, à partir de la dernière version qui se trouve sur : https://hub.docker.com/repository/docker/denispil/oc_lettings
 
 - La première étape est de cloner le repo sur github : `git clone git@github.com:DenisPil/P13.git`
-- Ensuite activer l'environement virtuelle `source venv/bin/activate`.
-- Pour terminer se mettre dans le répertoire racine de l'application.
+- Ensuite activer l'environement virtuel `source venv/bin/activate`.
+- Pour terminer se mettre dans le répertoire racine de l'application
 - Puis activer le conteneur `docker-compose up`
-- Et ce rendre à l'adresse `localhost:8000`
+- Et se rendre à l'adresse `localhost:8000`
 
 ### CircleCI & Heroku
 
@@ -100,7 +100,7 @@ Prérequis:
 - Un compte DockerHub.
 - Un compte Sentry.
 
-Ce rendre dans les settings de CircleCI puis l'onglet "Variable d'environnement"
+Se rendre dans les settings de CircleCI puis dans l'onglet "Variable d'environnement"
 
 | NAME | VALUE | 
 | ------|-----|
